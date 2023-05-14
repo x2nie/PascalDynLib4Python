@@ -10,7 +10,7 @@ else:  #CPython
   import FooLib
 
 try:
-  print(FooLib.FooLib().GetVal(1))
+  print(FooLib.FooLib().GetVal(4 * 110))
 except:
   print(sys.exc_info()[0])  #exception name in form module.classname
   print(sys.exc_info()[1])  #exception error message

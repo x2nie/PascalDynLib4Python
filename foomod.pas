@@ -54,7 +54,7 @@ type
   {$UNDEF USE_CDECL}
 {$ENDIF}
 
-function FooGetVal(InParam : cint32) : cint32; {$IFDEF USE_CDECL}cdecl{$ELSE}stdcall{$ENDIF}; external FooLibNameBase;
+//function FooGetVal(InParam : cint32) : cint32; {$IFDEF USE_CDECL}cdecl{$ELSE}stdcall{$ENDIF}; external FooLibNameBase;
 
 
 function GetVal(Self : PyObject;
@@ -64,18 +64,19 @@ var
 begin
   try
     if PyArg_ParseTuple(Args, 'i', @InParam) = 0 then
-      begin  //Python exception will also be set, eg, OverflowError
+    begin  //Python exception will also be set, eg, OverflowError
       Result := nil;
       Exit;
-      end;
-    Result := PyInt_FromLong(FooGetVal(InParam));
+    end;
+    // Result := PyInt_FromLong(FooGetVal(InParam));
+    Result := PyInt_FromLong(InParam * 2);
   except
     on E:Exception do
-      begin
+    begin
       PyErr_SetString(PyErr_NewException(FooModName + '.Error', nil, nil), 
                       PAnsiChar(AnsiString(E.Message)));
       Result := nil;
-      end;
+    end;
   end;
 end;
 
@@ -107,7 +108,7 @@ begin
   Methods[0].name := 'GetVal';
   Methods[0].meth := @GetVal;
   Methods[0].flags := METH_VARARGS;
-  Methods[0].doc := '';
+  Methods[0].doc := 'This iss GetVal description: okay.';
 
   Methods[NumFuncs].name := nil;
   Methods[NumFuncs].meth := nil;

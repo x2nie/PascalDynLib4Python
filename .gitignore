@@ -1,0 +1,8 @@
+*.o
+*.so
+*.pyd
+*.pyc
+
+*.res
+*.ppu
+

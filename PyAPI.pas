@@ -38,7 +38,7 @@ const
 
 {$IFDEF LINUX}
  {$IFDEF USE_PYTHON3}
-  PythonLib = 'python3.4m';
+  PythonLib = 'python3.8';
  {$ELSE}
   PythonLib = 'python2.7';
  {$ENDIF}
